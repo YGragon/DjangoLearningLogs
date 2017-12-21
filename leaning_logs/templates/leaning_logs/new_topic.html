@@ -1,11 +1,22 @@
 {% extends "leaning_logs/base.html" %}
-{% block content %}
-    <p> Add a new topic:</p>
+{% load bootstrap3 %}
 
-    <form action="{% url 'leaning_logs:new_topic' %}" method="post">
+{% block header %}
+    <h3>添加新的主题</h3>
+{% endblock header %}
+
+
+{% block content %}
+
+    <form action="{% url 'leaning_logs:new_topic' %}" method="post" class="form">
         {% csrf_token %}
+        {% bootstrap_form form %}
         {{ form.as_p }}
-        <button name="submit"> add topic </button>
+
+        {% buttons %}
+            <button name="submit" class="btn btn-primary"> 添加主题 </button>
+        {% endbuttons%}
+
     </form>
 
 {% endblock content %}

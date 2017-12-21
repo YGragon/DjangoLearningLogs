@@ -1,4 +1,16 @@
 {% extends "leaning_logs/base.html" %}
+
+{% block header %}
+    <div class="jumbotron">
+        <h2>人生没有彩排，每一天都是都是现场直播，请开始你的表演！</h2>
+    </div>
+{% endblock header %}
+
 {% block content %}
-    <p>Leaning Log helps you kepp track of your leaning, for any topic you're leaning about.</p>
+    <h3>
+        <a href="{% url 'users:register' %}"> 注册一个账号</a>去开始记录你的故事，用各个主题去回忆你的过往~
+    </h3>
+    <h3>
+        把你的故事记录在每个主题下，当历史的列车开出，你可以通过主题车票取出你存在列车上的每件行李。
+    </h3>
 {% endblock content %}

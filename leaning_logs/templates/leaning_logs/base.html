@@ -1,12 +1,55 @@
-<p>
-  <a href="{% url 'leaning_logs:index' %}">Learning Log</a> -
-  <a href="{% url 'leaning_logs:topics' %}">Topics</a> -
-  {% if user.is_authenticated %}
-    Hello, {{ user.username }}.
-    <a href="{% url 'users:logout' %}">log out</a>
-  {% else %}
-    <a href="{% url 'users:register' %}">register</a> -
-    <a href="{% url 'users:login' %}">log in</a>
-  {% endif %}
-</p>
-{% block content %}{% endblock content %}
+{% load bootstrap3 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatlible" content="IE=edge">
+    <meta name="Viewport" content="width=device-width, inital-scale=1">
+
+    <title>开往历史的列车,正在发车...</title>
+
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed"
+                data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+                </button>
+                <a class="navbar-brand" href="{% url 'leaning_logs:index' %}">开往历史的列车</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'leaning_logs:topics' %}">主题列表</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                        <li><a> 欢迎你，{{user.username }}.</a></li>
+                        <li><a href="{% url 'users:logout' %}"> 退出登录</a></li>
+                    {% else %}
+                        <li><a href="{% url 'users:register' %}"> 注册账户</a></li>
+                        <li><a href="{% url 'users:login' %}"> 已有账户？登录</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- /.nav-collapse -->
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            {% block header %}{% endblock header %}
+        </div>
+        <div>
+            {% block content %}{% endblock content %}
+        </div>
+    </div>
+    <!-- /container -->
+</body>
+</html>

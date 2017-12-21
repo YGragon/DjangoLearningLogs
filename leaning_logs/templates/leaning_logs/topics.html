@@ -1,12 +1,21 @@
 {% extends "leaning_logs/base.html" %}
+{% block header %}
+    <h2> 主题列表 </h2>
+{% endblock header %}
+
 {% block content %}
-    <p>Topics</p>
     <ul>
         {% for topic in topics %}
-            <li><a href="{% url 'leaning_logs:topic' topic.id %}">{{ topic }}</a></li>
+            <li>
+                <h4>
+                    <a href="{% url 'leaning_logs:topic' topic.id %}">{{ topic }}</a>
+                </h4>
+            </li>
         {% empty %}
             <li>No topics.html have been added yet.</li>
         {% endfor %}
     </ul>
-    <a href="{% url 'leaning_logs:new_topic' %}">Add a new topic: </a>
+    <h6>
+        <a href="{% url 'leaning_logs:new_topic' %}">点击添加新的主题哦 </a>
+    </h6>
 {% endblock content %}
