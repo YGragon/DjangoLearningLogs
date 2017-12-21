@@ -7,13 +7,13 @@ from . import views
 
 app_name='leaning_log'
 urlpatterns = [
-    # Login page.
+    # 登录页面.
     url(r'^login/$', login, {'template_name': 'users/login.html'},
         name='login'),
 
-    # Logout page.
+    # 退出登录.
     url(r'^logout/$', views.logout_view, name='logout'),
 
-    # # Registration page.
-    # url(r'^register/$', views.register, name='register'),
+    # 注册页面.
+    url(r'^register/$', views.register, name='register'),
 ]
