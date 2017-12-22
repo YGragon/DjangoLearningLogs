@@ -2,14 +2,14 @@ from django import forms
 from .models import Topic, Entry
 
 class TopicForm(forms.ModelForm):
-    """docstring for Topic"""
+    """主题表单"""
     class Meta:
         model = Topic
         fields = ['text']
         labels = {'text':''}
 
 class EntryForm(forms.ModelForm):
-    """docstring for EntryForm"""
+    """文章表单"""
     class Meta:
         model = Entry
         fields = ['text']
