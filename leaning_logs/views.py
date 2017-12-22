@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 
-# Create your views here.
 def index(request):
     """学习笔记的主页"""
     return render(request, 'leaning_logs/index.html')
@@ -13,7 +12,6 @@ def index(request):
 @login_required
 def topics(request):
     """显示所有的主题"""
-    # topics = Topic.objects.order_by('date_added') 所有人能够看到
     topics = Topic.objects.filter(owner=request.user).order_by('date_added')
     context = {'topics':topics}
     return render(request, 'leaning_logs/topics.html', context)
@@ -25,6 +23,8 @@ def topic(request, topic_id):
     # 确认请求的主题属于当前用户
     if topic.owner != request.user:
         raise Http404
+
+    # -date_added -表示按时间降序显示
     entries = topic.entry_set.order_by('-date_added')
     context = {'topic':topic, 'entries':entries}
     return render(request, 'leaning_logs/topic.html', context)
