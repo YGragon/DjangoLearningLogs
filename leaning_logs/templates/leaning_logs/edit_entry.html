@@ -1,13 +1,24 @@
 {% extends "leaning_logs/base.html" %}
+{% load bootstrap3 %}
+
 {% block content %}
-    <p><a href="{% url 'leaning_logs:topic' topic.id %}">{{ topic }}</a></p>
+    <h4>
+        <a href="{% url 'leaning_logs:new_topic' %}">添加新的主题 </a>
+    </h4>
+    <h4>
+        <!-- 点击进入主题 -->
+        <a href="{% url 'leaning_logs:topic' topic.id %}">{{ topic }}</a>
+    </h4>
 
-    <p>Add a new entry: </p>
-
-    <form action="{% url 'leaning_logs:edit_entry' entry.id %}" method="post">
+    <form action="{% url 'leaning_logs:edit_entry'  entry.id %}" method="post" class="form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button name="submit"> save changes </button>
+        {% bootstrap_form form %}
+        <!-- {{ form.as_p }} -->
+
+        {% buttons %}
+            <button name="submit" class="btn btn-primary"> 保存修改 </button>
+        {% endbuttons%}
+
     </form>
 
 {% endblock content %}

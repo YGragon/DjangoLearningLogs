@@ -11,7 +11,7 @@
     <form action="{% url 'leaning_logs:new_topic' %}" method="post" class="form">
         {% csrf_token %}
         {% bootstrap_form form %}
-        {{ form.as_p }}
+        <!-- {{ form.as_p }} -->
 
         {% buttons %}
             <button name="submit" class="btn btn-primary"> 添加主题 </button>
