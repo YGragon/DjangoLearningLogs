@@ -15,7 +15,13 @@
             <li>No topics.html have been added yet.</li>
         {% endfor %}
     </ul>
-    <h6>
-        <a href="{% url 'leaning_logs:new_topic' %}">点击添加新的主题哦 </a>
-    </h6>
+    <ul>
+        <li>
+            <h5>
+                <a href="{% url 'leaning_logs:new_topic' %}">点击可以添加新的主题哦 </a>
+            </h5>
+        </li>
+
+    </ul>
+
 {% endblock content %}
