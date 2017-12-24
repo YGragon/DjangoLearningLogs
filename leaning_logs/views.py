@@ -11,8 +11,9 @@ def index(request):
 
 @login_required
 def topics(request):
-    """显示所有的主题"""
+    """显示所有的主题，login_required：加入登录验证，owner=request.user才能查看主题列表"""
     topics = Topic.objects.filter(owner=request.user).order_by('date_added')
+    # 将结果存在context字典中
     context = {'topics':topics}
     return render(request, 'leaning_logs/topics.html', context)
 
@@ -39,9 +40,13 @@ def new_topic(request):
         # POST 提交的数据，对数据进行处理
         form =TopicForm(request.POST)
         if form.is_valid():
+            # 先修改主题，再保存到数据库中
             new_topic = form.save(commit=False)
+            # 将当前修改主题的人变为新的话题所有者
             new_topic.owner = request.user
+            # 保存到数据库
             new_topic.save()
+            # 返回主页
             return HttpResponseRedirect(reverse('leaning_logs:topics'))
 
     context = {'form':form}
