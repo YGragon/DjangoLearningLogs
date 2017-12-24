@@ -1,13 +1,20 @@
 {% extends "leaning_logs/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+  <h3><a href="{% url 'leaning_logs:topic' topic.id %}">{{ topic }}</a></h3>
+{% endblock header %}
+
 {% block content %}
-    <p><a href="{% url 'leaning_logs:topic' topic.id %}">{{ topic }}</a></p>
 
-    <p>Add a new entry: </p>
-
-    <form action="{% url 'leaning_logs:new_entry' topic.id %}" method="post">
+    <form method="post" accept="{% url 'leaning_logs:new_entry' topic.id %}" class="form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button name="submit"> add entry </button>
+
+        {% buttons %}
+            <button name="submit" class="btn btn-primary">添加笔记</button>
+        {% endbuttons %}
+        <input type="hidden" name="next" value="{% url 'leaning_logs:index' %}" />
     </form>
 
 {% endblock content %}
