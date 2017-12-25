@@ -8,8 +8,7 @@ from . import views
 app_name='leaning_log'
 urlpatterns = [
     # 登录页面. template_name表示使用的是模板中的登录页面，
-    url(r'^login/$', login, {'template_name': 'users/login.html'},
-        name='login'),
+    url(r'^login/$', login, {'template_name': 'users/login.html'}, name='login'),
 
     # 退出登录.
     url(r'^logout/$', views.logout_view, name='logout'),
