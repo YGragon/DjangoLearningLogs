@@ -25,7 +25,10 @@ SECRET_KEY = 'dns(--hp9z#=a%*dyu+l7n2*1n$!o25t$8x814y85rm^xkbf#+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# 不经过修改的host
+# ALLOWED_HOSTS = []
+# 为了再手机上访问修改的
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

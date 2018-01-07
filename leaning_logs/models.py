@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+import json
+from datetime import date, datetime
 
 class Topic(models.Model):
     """用户要学习的主题."""
@@ -25,3 +27,26 @@ class Entry(models.Model):
     def __str__(self):
         """返回模型的字符串表示"""
         return self.text[:50] + "..."
+
+
+class MyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.strftime('%Y-%m-%d %H:%M:%S')
+        elif isinstance(obj, date):
+            return obj.strftime("%Y-%m-%d")
+        else:
+            return json.JSONEncoder.default(self, obj)
+
+class TopicEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Topic):
+            return obj.text
+        return json.JSONEncoder.default(self, obj)
+
+class EntryEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Entry):
+            return obj.text
+        else:
+            return json.JSONEncoder.default(self, obj)

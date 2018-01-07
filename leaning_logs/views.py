@@ -2,8 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from .models import Topic, Entry
+from .models import Topic, Entry, MyEncoder, TopicEncoder, EntryEncoder
 from .forms import TopicForm, EntryForm
+import json
+from django.http import HttpResponse
 
 def index(request):
     """学习笔记的主页"""
@@ -15,6 +17,14 @@ def topics(request):
     topics = Topic.objects.filter(owner=request.user).order_by('date_added')
     # 将结果存在context字典中
     context = {'topics':topics}
+
+    # OK
+    # result_set = Topic.objects.all().values()
+    # word = list(result_set) #ValuesQuerySet对象需要先转换成list
+    # data = json.dumps(word, cls=MyEncoder) # 把list转成json
+    # return HttpResponse(data) #返回json
+
+    # 返回给网页使用
     return render(request, 'leaning_logs/topics.html', context)
 
 @login_required
@@ -28,6 +38,13 @@ def topic(request, topic_id):
     # -date_added -表示按时间降序显示
     entries = topic.entry_set.order_by('-date_added')
     context = {'topic':topic, 'entries':entries}
+
+    # OK
+    # result_set = topic.entry_set.all().values()
+    # word = list(result_set) #ValuesQuerySet对象需要先转换成list
+    # data = json.dumps(word, cls=MyEncoder) # 把list转成json
+    # return HttpResponse(data) #返回json
+
     return render(request, 'leaning_logs/topic.html', context)
 
 @login_required
@@ -46,10 +63,18 @@ def new_topic(request):
             new_topic.owner = request.user
             # 保存到数据库
             new_topic.save()
+
+            # ok
+            # result_set = Topic.objects.all().values()
+            # word = list(result_set) #ValuesQuerySet对象需要先转换成list
+            # data = json.dumps(word, cls=MyEncoder) # 把list转成json
+            # return HttpResponse(data) #返回json
+
             # 返回主页
             return HttpResponseRedirect(reverse('leaning_logs:topics'))
 
     context = {'form':form}
+
     return render(request, 'leaning_logs/new_topic.html', context)
 
 @login_required
