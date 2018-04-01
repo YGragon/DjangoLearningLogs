@@ -1,5 +1,5 @@
 {% load bootstrap3 %}
-
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +11,8 @@
 
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    <script src="{% static 'js/jquery.js'%}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
 </head>
 <body>
     <!-- Static navbar -->
@@ -30,7 +32,14 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
-                        <li><a> 欢迎你，{{user.username }}.</a></li>
+                        <li>
+                    <div class="dropdown" style="margin-top:8px">
+                        <button class='btn btn-default dropdown-toggle' type='button' id='dropdownMenu' data-toggle='dropdown'>{{ user.username }}<span class='caret'></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'users:password_change' %}">修改密码</a></li>
+                        </ul>
+                    </div>
+                </li>
                         <li><a href="{% url 'users:logout' %}"> 退出登录</a></li>
                     {% else %}
                         <li><a href="{% url 'users:register' %}"> 注册账户</a></li>

@@ -8,7 +8,12 @@
 
 {% block content %}
     <h3>
-        <a href="{% url 'users:register' %}"> 注册一个账号</a>去开始记录你的故事，用各个主题去回忆你的过往~
+        {% if user.is_authenticated %}
+            欢迎你，{{user.username }}.
+        {% else %}
+            <a href="{% url 'users:register' %}"> 注册一个账号</a>
+        {% endif %}
+        去开始记录你的故事，用各个主题去回忆你的过往~
     </h3>
     <h3>
         把你的故事记录在每个主题下，当历史的列车开出，你可以通过主题车票取出你存在列车上的每件行李。

@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.contrib.auth.views import login
-
+from django.contrib.auth import views as auth_views
 from . import views
 
 app_name='leaning_log'
@@ -13,4 +13,11 @@ urlpatterns = [
 
     # 注册页面.
     url(r'^register/$', views.register, name='register'),
+
+    # 修改密码页面.
+    url(r'^password-change/$', auth_views.password_change,
+        {"post_change_redirect":"/users/password-change-done"}, name='password_change'),
+
+    # 修改密码完成页面.
+    url(r'^password-change-done/$', auth_views.password_change_done, name='password_change_done'),
 ]
